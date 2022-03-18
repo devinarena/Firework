@@ -1,0 +1,142 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/GameTheme.tres" type="Theme" id=1]
+[ext_resource path="res://script/Game.gd" type="Script" id=2]
+[ext_resource path="res://assets/Font48.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/background.png" type="Texture" id=4]
+[ext_resource path="res://assets/retry.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+
+[node name="Game" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fireworks" type="Node" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0, 0, 0, 1 )
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="GUILayer/GUI"]
+anchor_right = 1.0
+anchor_bottom = 0.0888889
+custom_fonts/font = ExtResource( 3 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LostDialog" type="Panel" parent="GUILayer/GUI"]
+visible = false
+anchor_left = 0.0434783
+anchor_top = 0.244444
+anchor_right = 0.956522
+anchor_bottom = 0.644444
+margin_bottom = -3.05176e-05
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VeritcalContainer" type="VBoxContainer" parent="GUILayer/GUI/LostDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 8.0
+margin_bottom = -8.0
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LostMessage" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer"]
+margin_right = 336.0
+margin_bottom = 93.0
+text = "Game over!
+Try again for a higher score!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Scores" type="HBoxContainer" parent="GUILayer/GUI/LostDialog/VeritcalContainer"]
+margin_top = 109.0
+margin_right = 336.0
+margin_bottom = 171.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores"]
+margin_left = 122.0
+margin_right = 213.0
+margin_bottom = 62.0
+
+[node name="ScoreLabel" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores/VBoxContainer"]
+margin_right = 91.0
+margin_bottom = 29.0
+text = "Score"
+align = 1
+valign = 1
+
+[node name="Score" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores/VBoxContainer"]
+margin_top = 33.0
+margin_right = 91.0
+margin_bottom = 62.0
+text = "0"
+align = 1
+valign = 1
+
+[node name="Buttons" type="HBoxContainer" parent="GUILayer/GUI/LostDialog/VeritcalContainer"]
+margin_top = 187.0
+margin_right = 336.0
+margin_bottom = 251.0
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Buttons"]
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+custom_fonts/font = SubResource( 1 )
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Buttons/RetryButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="GUILayer/GUI/LostDialog/VeritcalContainer/Buttons/RetryButton" to="." method="_on_RetryButton_pressed"]
