@@ -4,25 +4,25 @@
 [ext_resource path="res://script/FireworkRocket.gd" type="Script" id=2]
 [ext_resource path="res://assets/firework.png" type="Texture" id=3]
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 32, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 64, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 96, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "default",
 "speed": 10.0
@@ -39,8 +39,7 @@ __meta__ = {
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
-frames = SubResource( 5 )
-frame = 2
+frames = SubResource( 10 )
 playing = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -54,6 +53,7 @@ wait_time = 0.1
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 1 )
 texture_scale = 4.0
+range_layer_min = -1
 
 [connection signal="input_event" from="." to="." method="_on_FireworkRocket_input_event"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

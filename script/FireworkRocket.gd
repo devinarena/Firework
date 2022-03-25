@@ -46,9 +46,16 @@ func _on_Timer_timeout() -> void:
 func _on_FireworkRocket_input_event(viewport, event, shape_idx) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if not $Timer.is_stopped() or $Tween.is_active():
-			var boom = explosion.instance()
-			boom.position = position
-			boom.modulate = Color(randf(), randf(), randf(), 1)
-			game.get_node("Fireworks").add_child(boom)
-			game.score()
-			queue_free()
+			explode()
+
+func explode() -> void:
+	var boom = explosion.instance()
+	boom.position = position
+	if Globals.color == Color(0, 0, 0, 0):
+		boom.modulate = Color(randf(), randf(), randf(), 1)
+	else:
+		boom.modulate = Globals.color
+	game.get_node("Fireworks").add_child(boom)
+	game.score()
+	Globals.total_fireworks += 1
+	queue_free()

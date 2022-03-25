@@ -12,24 +12,23 @@ size = 12
 [node name="Game" type="Node"]
 script = ExtResource( 2 )
 
-[node name="Background" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = -1
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 368, 720 )
+
+[node name="Background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 184, 360 )
 texture = ExtResource( 4 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground/ParallaxLayer"]
 
 [node name="Fireworks" type="Node" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0, 0, 0, 1 )
 
 [node name="GUILayer" type="CanvasLayer" parent="."]
 
@@ -90,23 +89,44 @@ __meta__ = {
 margin_top = 109.0
 margin_right = 336.0
 margin_bottom = 171.0
+custom_constants/separation = 32
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores"]
-margin_left = 122.0
-margin_right = 213.0
+[node name="ScoreContainer" type="VBoxContainer" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores"]
+margin_left = 71.0
+margin_right = 162.0
 margin_bottom = 62.0
 
-[node name="ScoreLabel" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores/VBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores/ScoreContainer"]
 margin_right = 91.0
 margin_bottom = 29.0
 text = "Score"
 align = 1
 valign = 1
 
-[node name="Score" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores/VBoxContainer"]
+[node name="Score" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores/ScoreContainer"]
 margin_top = 33.0
 margin_right = 91.0
+margin_bottom = 62.0
+text = "0"
+align = 1
+valign = 1
+
+[node name="BestContainer" type="VBoxContainer" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores"]
+margin_left = 194.0
+margin_right = 264.0
+margin_bottom = 62.0
+
+[node name="ScoreLabel" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores/BestContainer"]
+margin_right = 70.0
+margin_bottom = 29.0
+text = "Best"
+align = 1
+valign = 1
+
+[node name="Score" type="Label" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Scores/BestContainer"]
+margin_top = 33.0
+margin_right = 70.0
 margin_bottom = 62.0
 text = "0"
 align = 1
@@ -116,11 +136,20 @@ valign = 1
 margin_top = 187.0
 margin_right = 336.0
 margin_bottom = 251.0
+custom_constants/separation = 32
 alignment = 1
 
+[node name="HomeButton" type="Button" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Buttons"]
+margin_left = 184.0
+margin_right = 248.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+custom_fonts/font = SubResource( 1 )
+expand_icon = true
+
 [node name="RetryButton" type="Button" parent="GUILayer/GUI/LostDialog/VeritcalContainer/Buttons"]
-margin_left = 136.0
-margin_right = 200.0
+margin_left = 88.0
+margin_right = 152.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 custom_fonts/font = SubResource( 1 )
@@ -139,4 +168,5 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="GUILayer/GUI/LostDialog/VeritcalContainer/Buttons/HomeButton" to="." method="_on_HomeButton_pressed"]
 [connection signal="pressed" from="GUILayer/GUI/LostDialog/VeritcalContainer/Buttons/RetryButton" to="." method="_on_RetryButton_pressed"]
